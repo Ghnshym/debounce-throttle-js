@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Throttling Example</title>
+    <style>
+        .container {
+            height: 1200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Scroll Throttling Example</h1>
+    <div class="container">
+        <h2>Throttled Scroll Count: <span id="throttleCount">0</span></h2>
+    </div>
+
+    <script>
+        function throttle(func, delay) {
+            let isThrottled = false;
+            return function () {
+                if (!isThrottled) {
+                    func();
+                    isThrottled = true;
+                    setTimeout(function () {
+                        isThrottled = false;
+                    }, delay);
+                }
+            };
+        }
+
+        let throttleCount = 0;
+        function incrementScrollCount() {
+            throttleCount++;
+            document.getElementById('throttleCount').textContent = throttleCount;
+        }
+
+        const throttledScroll = throttle(incrementScrollCount, 1000);
+        window.addEventListener('scroll', throttledScroll);
+    </script>
+</body>
+</html>

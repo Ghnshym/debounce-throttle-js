@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Example with Debouncing</title>
+</head>
+<body>
+    <h1>Search Example with Debouncing</h1>
+    <input type="text" id="searchInput" placeholder="Type your search query...">
+    <div id="searchResults"></div>
+
+    <script>
+        function debounce(func, delay) {
+            let timeoutId;
+            return function () {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(func, delay);
+            };
+        }
+
+        function performSearch() {
+            const searchQuery = document.getElementById('searchInput').value;
+            const searchResults = document.getElementById('searchResults');
+            
+            searchResults.innerHTML = `Searching for: "${searchQuery}"`;
+        }
+
+        const debouncedSearch = debounce(performSearch, 500); 
+
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', debouncedSearch);
+    </script>
+</body>
+</html>

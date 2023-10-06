@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" onkeyup="betterfunction()">
+
+    <script>
+        let count = 1;
+        function getData() {
+            //here you can call api to get data.
+            console.log("Hello!", count++);
+        }
+
+        function debounce(fun, delay) {
+            let timer;
+            return function () {
+                clearTimeout(timer);
+                timer = setTimeout(fun, delay);
+            }
+        }
+
+        const betterfunction = debounce(getData, 500);
+    </script>
+</body>
+</html>
