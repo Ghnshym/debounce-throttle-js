@@ -1,1 +1,1 @@
-#Debouncing and Throttling Events in JavaScript.
+# Debouncing and Throttling Events in JavaScript.
