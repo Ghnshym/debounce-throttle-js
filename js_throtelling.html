@@ -15,20 +15,27 @@
 
         <h2 class="n_count">Normal Count</h2>
         <h2 class="t_count">Throttling Cont</h2>
+        <h2 class="d_count">Debouncing Cont</h2>
         
     </div>
     
     <script>
         const n_count = document.querySelector(".n_count");
         const t_count = document.querySelector(".t_count");
+        const d_count = document.querySelector(".d_count");
         let normal_count = 0;
         let throtel_count = 0;
+        let debounce_count = 0;
         let isScrolling = true;
 
+        // Normal
+        
         const normalCount = () => {
             normal_count++;
             n_count.innerHTML = `Normal Count: ${normal_count}`;
         }
+
+         // Throttling 
 
         const throtelCount = () => {
             if(isScrolling === true) {
@@ -42,9 +49,23 @@
 
             }
         }
+
+         // Debouncing 
+
+        let timed;
+        const debounceCount = () => {
+            clearTimeout(timed);
+
+            timed = setTimeout ( ()  => {
+                debounce_count++;
+                d_count.innerHTML = `Debouncing count: ${debounce_count}`;
+            }, 1000);
+        }
+
         const showCount = () => {
             normalCount();
             throtelCount();
+            debounceCount();
         }
     </script>
 </body>
