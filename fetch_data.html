@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   Search :  <input type="text" onkeyup="debouncedSearch()" id="word"><br>
+   <h3 id="result"> Search Data is : </h3>
+
+   <script>
+    // Your debounce function remains the same
+    function debounce(func, delay) {
+        let timeId;
+        return function () {
+            clearTimeout(timeId);
+            timeId = setTimeout(func, delay);
+        }
+    }
+
+    // Function to fetch data from the API and update the result
+    function fetchFromAPI(searchString) {
+        // Make an API request using the Fetch API
+        fetch(`http://127.0.0.1:8000/api/search/${searchString}`)
+            .then(response => response.json())
+            .then(data => {
+                // Update the result element with the data
+                let inputResult = document.getElementById("result");
+                inputResult.innerHTML = `Search Data is : ${JSON.stringify(data)}`;
+            })
+            .catch(error => {
+                console.error("Error fetching data from API:", error);
+            });
+    }
+
+    // Function to handle debounced search
+    function debouncedSearch() {
+        let inputData = document.getElementById("word").value;
+        let inputResult = document.getElementById("result");
+
+        inputResult.innerHTML = `Searching for: "${inputData}"`;
+
+        // Call the fetchFromAPI function with the search string
+        debounce(() => {
+            fetchFromAPI(inputData);
+        }, 1000)();
+    }
+   </script>
+</body>
+</html>
